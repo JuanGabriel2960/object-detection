@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import '@tensorflow/tfjs-backend-cpu'
-import '@tensorflow/tfjs-backend-webgl'
 import * as cocoSsd from '@tensorflow-models/coco-ssd'
 
 @Component({
@@ -10,17 +8,19 @@ import * as cocoSsd from '@tensorflow-models/coco-ssd'
 })
 export class DetectionComponent implements OnInit {
   video: HTMLVideoElement
+  innerWidth = 0
+  innerHeight = 0
 
   constructor() { }
 
   ngOnInit(): void {
+    this.innerWidth = window.innerWidth;
+    this.innerHeight = window.innerHeight;
     this.checkMediaSource()
   }
 
   predictWithCocoModel = async () => {
-    const model = await cocoSsd.load({
-      base: 'lite_mobilenet_v2'
-    })
+    const model = await cocoSsd.load('lite_mobilenet_v2');
     this.detectFrame(this.video, model)
   }
 
@@ -61,15 +61,15 @@ export class DetectionComponent implements OnInit {
 
     const ctx = canvas.getContext("2d");
 
-    canvas.width = 300;
-    canvas.height = 300;
+    canvas.width = this.innerWidth;
+    canvas.height = this.innerHeight;
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     const font = "16px sans-serif";
     ctx.font = font;
     ctx.textBaseline = "top";
-    ctx.drawImage(this.video, 0, 0, 300, 300);
+    ctx.drawImage(this.video, 0, 0, this.innerWidth, this.innerHeight);
 
     predictions.forEach(prediction => {
       const x = prediction.bbox[0];
