@@ -1,0 +1,73 @@
+.object-details {
+    position: absolute;
+    top: 100vh;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    transition: top 200ms ease-in-out;
+}
+
+.object-details.open {
+    top: 0;
+}
+
+.top {
+    background-color: #ed8e24;
+    height: 60%;
+    padding: 2rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bottom {
+    background-color: white;
+    height: 40%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bottom h3 {
+    font-size: 2.4rem;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+}
+
+.toolbar button {
+    margin-right: 3rem;
+    background-color: transparent;
+    color: white;
+    font-size: 2rem;
+}
+
+.toolbar {
+    font-size: 1.8rem;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buy {
+    background-color: #ed8e24;
+    padding: 1.5rem 2rem;
+    border-radius: 2rem;
+    width: 70%;
+    color: white;
+    font-weight: bold;
+}
+
+.save {
+    background-color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 2rem;
+    width: 20%;
+}

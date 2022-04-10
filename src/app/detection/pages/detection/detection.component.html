@@ -1,4 +1,10 @@
-<div style="text-align:center">
+<div class="detection">
     <video hidden id="vid" [width]="innerWidth" [height]="innerHeight"></video>
     <canvas id="canvas"></canvas>
+    <app-feedback *ngIf="video.paused" (click)="openObjectDetails()" [msg]="msg"></app-feedback>
+    <button class="btn" (click)="takePhoto()">
+        <img *ngIf="video.paused==false" src="assets/camera.png" />
+        <img *ngIf="video.paused==true" src="assets/repeat.png" />
+    </button>
+    <app-object-details></app-object-details>
 </div>

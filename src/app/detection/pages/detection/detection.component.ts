@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as cocoSsd from '@tensorflow-models/coco-ssd'
+import { ObjectDetailsService } from '../../components/object-details/services/object-details.service';
 
 @Component({
   selector: 'app-detection',
@@ -7,11 +8,14 @@ import * as cocoSsd from '@tensorflow-models/coco-ssd'
   styleUrls: ['./detection.component.css']
 })
 export class DetectionComponent implements OnInit {
+
   video: HTMLVideoElement
   innerWidth = 0
   innerHeight = 0
+  msg = ''
+  objects: cocoSsd.DetectedObject[]
 
-  constructor() { }
+  constructor(private objectDetailsService: ObjectDetailsService) { }
 
   ngOnInit(): void {
     this.innerWidth = window.innerWidth;
@@ -30,9 +34,7 @@ export class DetectionComponent implements OnInit {
 
       navigator.mediaDevices.getUserMedia({
         audio: false,
-        video: {
-          facingMode: 'user'
-        }
+        video: true
       }).then(mediaStream => {
         this.video.srcObject = mediaStream
         this.video.onloadedmetadata = () => {
@@ -49,6 +51,7 @@ export class DetectionComponent implements OnInit {
 
   detectFrame = (video: HTMLVideoElement, model: cocoSsd.ObjectDetection) => {
     model.detect(video).then(predictions => {
+      this.objects = predictions
       this.renderPredictions(predictions)
       requestAnimationFrame(() => {
         this.detectFrame(video, model)
@@ -77,11 +80,11 @@ export class DetectionComponent implements OnInit {
       const width = prediction.bbox[2];
       const height = prediction.bbox[3];
 
-      ctx.strokeStyle = "#00FFFF";
+      ctx.strokeStyle = "#ed8e24";
       ctx.lineWidth = 2;
       ctx.strokeRect(x, y, width, height);
 
-      ctx.fillStyle = "#00FFFF";
+      ctx.fillStyle = "#ed8e24";
       const textWidth = ctx.measureText(prediction.class).width;
       const textHeight = parseInt(font, 10);
       ctx.fillRect(x, y, textWidth + 4, textHeight + 4);
@@ -91,9 +94,34 @@ export class DetectionComponent implements OnInit {
       const x = prediction.bbox[0];
       const y = prediction.bbox[1];
 
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = "#ffffff";
       ctx.fillText(prediction.class, x, y);
     });
+  }
+
+  takePhoto() {
+    if (this.video.paused) {
+      this.video.play()
+    } else {
+      this.video.pause()
+    }
+    
+    console.log(this.objects)
+
+    if (this.objects.length < 1) {
+      this.msg = 'No objects detected'
+      return
+    }
+
+    this.msg = `${this.objects.length} objects have been detected`
+  }
+
+  openObjectDetails() {
+    if (this.objects.length < 1) {
+      return
+    }
+
+    this.objectDetailsService.change(true)
   }
 
 }

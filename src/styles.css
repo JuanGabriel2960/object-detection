@@ -28,4 +28,5 @@ input, select{
 }
 button{
     border: none;
+    cursor: pointer;
 }
