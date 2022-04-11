@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as cocoSsd from '@tensorflow-models/coco-ssd'
 import { ObjectDetailsService } from '../../components/object-details/services/object-details.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-detection',
@@ -13,9 +14,16 @@ export class DetectionComponent implements OnInit {
   innerWidth = 0
   innerHeight = 0
   msg = ''
-  objects: cocoSsd.DetectedObject[]
+  objects: cocoSsd.DetectedObject[] = []
+  isOpen: boolean;
 
-  constructor(private objectDetailsService: ObjectDetailsService) { }
+  private _subscription: Subscription;
+  constructor(private objectDetailsService: ObjectDetailsService) {
+    this.isOpen = objectDetailsService.isOpen
+    this._subscription = objectDetailsService.statusChange.subscribe((value) => {
+      this.isOpen = value
+    })
+  }
 
   ngOnInit(): void {
     this.innerWidth = window.innerWidth;
@@ -34,7 +42,9 @@ export class DetectionComponent implements OnInit {
 
       navigator.mediaDevices.getUserMedia({
         audio: false,
-        video: true
+        video: {
+          facingMode: 'environment'
+        }
       }).then(mediaStream => {
         this.video.srcObject = mediaStream
         this.video.onloadedmetadata = () => {
@@ -105,8 +115,6 @@ export class DetectionComponent implements OnInit {
     } else {
       this.video.pause()
     }
-    
-    console.log(this.objects)
 
     if (this.objects.length < 1) {
       this.msg = 'No objects detected'

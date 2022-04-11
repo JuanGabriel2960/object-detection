@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  DICTIONARY_API: "https://api.dictionaryapi.dev"
 };

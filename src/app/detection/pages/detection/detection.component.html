@@ -6,5 +6,5 @@
         <img *ngIf="video.paused==false" src="assets/camera.png" />
         <img *ngIf="video.paused==true" src="assets/repeat.png" />
     </button>
-    <app-object-details></app-object-details>
+    <app-object-details *ngIf="isOpen" [objects]="objects"></app-object-details>
 </div>

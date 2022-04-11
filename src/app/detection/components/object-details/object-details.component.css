@@ -1,14 +1,25 @@
 .object-details {
     position: absolute;
-    top: 100vh;
     width: 100vw;
     height: 100vh;
     z-index: 100;
-    transition: top 200ms ease-in-out;
+    animation: animation 200ms ease-in-out;
+    animation-fill-mode: forwards;
 }
 
-.object-details.open {
-    top: 0;
+.switch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.switch button {
+    border-radius: 100%;
+    padding: 0.5rem 1rem;
+}
+
+.switch img {
+    width: 80%;
 }
 
 .top {
@@ -63,6 +74,7 @@
     width: 70%;
     color: white;
     font-weight: bold;
+    text-align: center;
 }
 
 .save {
@@ -70,4 +82,14 @@
     padding: 1.5rem 2rem;
     border-radius: 2rem;
     width: 20%;
+}
+
+@keyframes animation {
+    from {
+        top: 100vh;
+    }
+
+    to {
+        top: 0;
+    }
 }
