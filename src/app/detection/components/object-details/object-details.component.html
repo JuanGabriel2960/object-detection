@@ -1,25 +1,27 @@
-<div class="object-details">
-    <div class="top">
-        <div class="toolbar">
-            <button (click)="closeObjectDetails()">&lt;</button>
-            <p>Object Details</p>
+<div class="overlay overlay-active">
+    <div class="object-details">
+        <div class="top">
+            <div class="toolbar">
+                <button (click)="closeObjectDetails()">&lt;</button>
+                <p>Object Details</p>
+            </div>
+            <div class="switch">
+                <button [disabled]="index<=0" (click)="changeIndex('back')">&lt;</button>
+                <img src="https://d1pc5hp1w29h96.cloudfront.net/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/6/V/6VY96AA-1_T1625845974.png"
+                    alt="object" />
+                <button [disabled]="index>=objects.length-1" (click)="changeIndex('next')">&gt;</button>
+            </div>
+            <span></span>
         </div>
-        <div class="switch">
-            <button [disabled]="index<=0" (click)="changeIndex('back')">&lt;</button>
-            <img src="https://d1pc5hp1w29h96.cloudfront.net/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/6/V/6VY96AA-1_T1625845974.png"
-                alt="object" />
-            <button [disabled]="index>=objects.length-1" (click)="changeIndex('next')">&gt;</button>
-        </div>
-        <span></span>
-    </div>
-    <div class="bottom">
-        <h3>{{objects[index].class | titlecase}}</h3>
-        <div>
-            <li *ngFor="let mean of meanings.slice(0, 2)">{{mean.definition}}</li>
-        </div>
-        <div class="button-container">
-            <a class="buy" [href]="'https://www.amazon.com/s?k='+objects[index].class" target="_blank">Purchase</a>
-            <button class="save">Save</button>
+        <div class="bottom">
+            <h3>{{objects[index].class | titlecase}}</h3>
+            <div>
+                <li *ngFor="let mean of meanings.slice(0, 2)">{{mean.definition}}</li>
+            </div>
+            <div class="button-container">
+                <a class="buy" [href]="'https://www.amazon.com/s?k='+objects[index].class" target="_blank">Purchase</a>
+                <button class="save">Save</button>
+            </div>
         </div>
     </div>
 </div>
