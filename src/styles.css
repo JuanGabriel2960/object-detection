@@ -1,35 +1,63 @@
 /* Globals */
-html{
+html {
     box-sizing: border-box;
     font-size: 62.5%;
     min-height: 100%;
 }
-*, *::before, *::after{
+
+*,
+*::before,
+*::after {
     box-sizing: inherit;
 }
-body{
+
+body {
     font-family: 'Roboto', sans-serif;
     font-size: 1.6rem;
     line-height: 1.3;
     max-width: 100vw;
     margin: auto;
 }
-img,video,svg{
+
+img,
+video,
+svg {
     max-width: 100%;
 }
-h1,h2,h3,h4,h5,h6,p,span{
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
     margin: 0;
 }
-a{
+
+a {
     text-decoration: none;
 }
-input, select{
-    outline: none!important;
+
+input,
+select {
+    outline: none !important;
 }
-button{
+
+button {
     border: none;
     cursor: pointer;
 }
+
+.swal2-popup .swal2-styled:focus {
+    box-shadow: none !important;
+}
+
+.swal2-popup {
+    font-size: 1.2rem !important;
+}
+
 .overlay {
     position: fixed;
     opacity: 0;
@@ -42,11 +70,13 @@ button{
     pointer-events: none;
     z-index: 99;
 }
-.overlay-active{
-    opacity: 1!important;
-    pointer-events: all!important;
+
+.overlay-active {
+    opacity: 1 !important;
+    pointer-events: all !important;
 }
-.modal{
+
+.modal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -54,6 +84,7 @@ button{
     transition: 200ms ease-in-out;
     max-width: 80%;
 }
-.modal-active{
-    transform: translate(-50%, -50%) scale(1)!important;
+
+.modal-active {
+    transform: translate(-50%, -50%) scale(1) !important;
 }

@@ -3,6 +3,7 @@ import * as cocoSsd from '@tensorflow-models/coco-ssd'
 import { ObjectDetailsService } from '../../components/object-details/services/object-details.service';
 import { Subscription } from 'rxjs';
 import { LoaderService } from '../../components/loader/services/loader.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detection',
@@ -55,9 +56,11 @@ export class DetectionComponent implements OnInit {
         }
       }).catch(() => {
         console.log('Error: permissions not allowed.')
+        Swal.fire({ title: 'Error', text: 'Camera permissions not allowed.', icon: 'error', confirmButtonColor: '#ed8e24', allowOutsideClick: false }).then(function () { window.location.reload(); })
       })
     } else {
       console.log('Error: the browser does not support media devices.')
+      Swal.fire({ title: 'Error', text: 'The browser does not support media devices.', icon: 'error', confirmButtonColor: '#ed8e24', allowOutsideClick: false }).then(function () { window.location.reload(); })
     }
   }
 
