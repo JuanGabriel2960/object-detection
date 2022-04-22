@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as cocoSsd from '@tensorflow-models/coco-ssd'
 import { ObjectDetailsService } from '../../components/object-details/services/object-details.service';
 import { Subscription } from 'rxjs';
+import { LoaderService } from '../../components/loader/services/loader.service';
 
 @Component({
   selector: 'app-detection',
@@ -18,7 +19,7 @@ export class DetectionComponent implements OnInit {
   isOpen: boolean;
 
   private _subscription: Subscription;
-  constructor(private objectDetailsService: ObjectDetailsService) {
+  constructor(private objectDetailsService: ObjectDetailsService, private loaderService: LoaderService) {
     this.isOpen = objectDetailsService.isOpen
     this._subscription = objectDetailsService.statusChange.subscribe((value) => {
       this.isOpen = value
@@ -34,6 +35,7 @@ export class DetectionComponent implements OnInit {
   predictWithCocoModel = async () => {
     const model = await cocoSsd.load('lite_mobilenet_v2');
     this.detectFrame(this.video, model)
+    this.loaderService.stop()
   }
 
   checkMediaSource = () => {
